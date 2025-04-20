@@ -14,7 +14,7 @@ layout: default
 
 
 ***
-[Index](./)
+[Index](../index.html)
 
 
 
