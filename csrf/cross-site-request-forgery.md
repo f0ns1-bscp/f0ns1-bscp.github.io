@@ -10,7 +10,7 @@ layout: default
 
 ### Clickjacking labs
 
-- [csrf](./csrf/cross-site-request-forgery.html)
+- [csrf](./csrf/csrf1.html)
 
 
 ***
