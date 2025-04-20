@@ -14,7 +14,7 @@ layout: default
 - [XSS Cross-site scripting](./xss/cross-site-scripting.html)
 - [CSRF Cross-site request forgery](./csrf/cross-site-request-forgery.html)
 - [Clickjacking](./clickjacking/clickjacking.html)
-- [DOM-based vulnerabilities](./dom/dom-based-vulnerabilities.html)
+- [DOM-based vulnerabilities](./DOM/DOM-based-vulnerabilities.html)
 
 
 
