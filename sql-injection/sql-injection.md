@@ -10,7 +10,7 @@ layout: default
 
 ### SQL injection 
 
-- [SQL Injection1](./sql-injection/sql-injection.html)
+- [SQL Injection1](./sql1.html)
 
 
 

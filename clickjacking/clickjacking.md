@@ -10,7 +10,7 @@ layout: default
 
 ### Clickjacking labs
 
-- [clickjacking](./clickjacking/clickjacking1.html)
+- [clickjacking](./clickjacking1.html)
 
 
 ***

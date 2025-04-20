@@ -9,7 +9,7 @@ layout: default
 
 ### DOM-based vulnerabilities labs
 
-- [DOM-based 1](./dom/dom1.html)
+- [DOM-based 1](./dom1.html)
 
 
 

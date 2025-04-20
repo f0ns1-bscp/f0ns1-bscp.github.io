@@ -10,7 +10,7 @@ layout: default
 
 ### xss labs
 
-- [XSS Cross-site scripting](./cross-site-scripting.html)
+- [XSS Cross-site scripting](./xss1.html)
 
 
 
