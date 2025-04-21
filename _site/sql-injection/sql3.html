@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>BSCP certification exercises | Personal solution for all certification labs</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="BSCP certification exercises" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Personal solution for all certification labs" />
+<meta property="og:description" content="Personal solution for all certification labs" />
+<link rel="canonical" href="http://localhost:4000/sql-injection/sql3.html" />
+<meta property="og:url" content="http://localhost:4000/sql-injection/sql3.html" />
+<meta property="og:site_name" content="BSCP certification exercises" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="BSCP certification exercises" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Personal solution for all certification labs","headline":"BSCP certification exercises","url":"http://localhost:4000/sql-injection/sql3.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>BSCP certification exercises</h1>
+        </a>
+        <h2>Personal solution for all certification labs</h2>
+
+        <section id="downloads">
+          
+            <a href="" class="btn">Download as .zip</a>
+            <a href="" class="btn">Download as .tar.gz</a>
+          
+          <a href="" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2 id="sql-injection">SQL Injection</h2>
+
+<p>This lab contains a SQL injection vulnerability in its stock check feature. 
+The results from the query are returned in the application’s response, so you can use a UNION attack to retrieve data from other tables.</p>
+
+<p>The database contains a users table, which contains the usernames and passwords of registered users. 
+To solve the lab, perform a SQL injection attack to retrieve the admin user’s credentials, then log in to their account.</p>
+
+<p><code class="language-plaintext highlighter-rouge">A web application firewall (WAF) will block requests that contain obvious signs of a SQL injection attack. You'll need to find a way to obfuscate your malicious query to bypass this filter. We recommend using the Hackvertor extension to do this.</code></p>
+
+<h3 id="lab-sql-injection-with-filter-bypass-via-xml-encoding">Lab: SQL injection with filter bypass via XML encoding</h3>
+
+<p>Identify the vulnerability</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Observe that the stock check feature sends the productId and storeId to the application in XML format.
+
+Send the POST /product/stock request to Burp Repeater.
+
+In Burp Repeater, probe the storeId to see whether your input is evaluated. 
+For example, try replacing the ID with mathematical expressions that evaluate to other potential IDs, for example:
+
+&lt;storeId&gt;1+1&lt;/storeId&gt;
+Observe that your input appears to be evaluated by the application, returning the stock for different stores.
+
+Try determining the number of columns returned by the original query by appending a UNION SELECT statement to the original store ID:
+
+&lt;storeId&gt;1 UNION SELECT NULL&lt;/storeId&gt;
+Observe that your request has been blocked due to being flagged as a potential attack.
+</code></pre></div></div>
+<p>Bypass the WAF</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>As you're injecting into XML, try obfuscating your payload using XML entities. 
+One way to do this is using the Hackvertor extension. Just highlight your input, right-click, then select Extensions &gt; Hackvertor &gt; Encode &gt; dec_entities/hex_entities.
+
+Resend the request and notice that you now receive a normal response from the application. 
+This suggests that you have successfully bypassed the WAF.
+</code></pre></div></div>
+<p>Craft an exploit</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pick up where you left off, and deduce that the query returns a single column. 
+When you try to return more than one column, the application returns 0 units, implying an error.
+
+As you can only return one column, you need to concatenate the returned usernames and passwords, for example:
+
+&lt;storeId&gt;&lt;@hex_entities&gt;1 UNION SELECT username || '~' || password FROM users&lt;/@hex_entities&gt;&lt;/storeId&gt;
+
+Send this query and observe that you've successfully fetched the usernames and passwords from the database, separated by a ~ character.
+
+Use the administrator's credentials to log in and solve the lab.
+</code></pre></div></div>
+
+<p><a href="../index.html">Index</a></p>
+
+      </section>
+    </div>
+  </body>
+</html>
