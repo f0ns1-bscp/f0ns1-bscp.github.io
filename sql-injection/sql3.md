@@ -26,12 +26,16 @@ For example, try replacing the ID with mathematical expressions that evaluate to
 
 <storeId>1+1</storeId>
 Observe that your input appears to be evaluated by the application, returning the stock for different stores.
-
+```
+![Solution](../assets/images/sql3_stock.png)
+```
 Try determining the number of columns returned by the original query by appending a UNION SELECT statement to the original store ID:
 
 <storeId>1 UNION SELECT NULL</storeId>
 Observe that your request has been blocked due to being flagged as a potential attack.
 ```
+![Solution](../assets/images/sql3_stock2.png)
+
 Bypass the WAF
 ```
 As you're injecting into XML, try obfuscating your payload using XML entities. 
@@ -53,5 +57,6 @@ Send this query and observe that you've successfully fetched the usernames and p
 
 Use the administrator's credentials to log in and solve the lab.
 ```
+![Solution](../assets/images/sql3_stock_bypass.png)
 
 [Index](../index.html)

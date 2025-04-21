@@ -87,12 +87,15 @@ For example, try replacing the ID with mathematical expressions that evaluate to
 
 &lt;storeId&gt;1+1&lt;/storeId&gt;
 Observe that your input appears to be evaluated by the application, returning the stock for different stores.
-
-Try determining the number of columns returned by the original query by appending a UNION SELECT statement to the original store ID:
+</code></pre></div></div>
+<p><img src="../assets/images/sql3_stock.png" alt="Solution" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Try determining the number of columns returned by the original query by appending a UNION SELECT statement to the original store ID:
 
 &lt;storeId&gt;1 UNION SELECT NULL&lt;/storeId&gt;
 Observe that your request has been blocked due to being flagged as a potential attack.
 </code></pre></div></div>
+<p><img src="../assets/images/sql3_stock2.png" alt="Solution" /></p>
+
 <p>Bypass the WAF</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>As you're injecting into XML, try obfuscating your payload using XML entities. 
 One way to do this is using the Hackvertor extension. Just highlight your input, right-click, then select Extensions &gt; Hackvertor &gt; Encode &gt; dec_entities/hex_entities.
@@ -112,6 +115,7 @@ Send this query and observe that you've successfully fetched the usernames and p
 
 Use the administrator's credentials to log in and solve the lab.
 </code></pre></div></div>
+<p><img src="../assets/images/sql3_stock_bypass.png" alt="Solution" /></p>
 
 <p><a href="../index.html">Index</a></p>
 
